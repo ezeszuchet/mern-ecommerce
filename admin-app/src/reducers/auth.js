@@ -17,7 +17,7 @@ export default (state = initState, action) => {
 
     console.log(action);
 
-    switch(action.type){
+    switch (action.type) {
         case authConstants.LOGIN_REQUEST:
             state = {
                 ...state,
@@ -31,6 +31,11 @@ export default (state = initState, action) => {
                 token: action.payload.token,
                 authenticate: true,
                 authenticating: false
+            }
+            break;
+        case authConstants.LOGOUT_REQUEST:
+            state = {
+                ...initState
             }
             break;
     }

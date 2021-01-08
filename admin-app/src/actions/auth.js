@@ -12,7 +12,7 @@ export const login = (user) => {
             ...user
         })
 
-        if(res.status === 200){
+        if (res.status === 200) {
             const { token, user } = res.data;
             localStorage.setItem('token', token);
             localStorage.setItem('user', JSON.stringify(user));
@@ -22,8 +22,8 @@ export const login = (user) => {
                     token, user
                 }
             });
-        }else{
-            if(res.status === 400){
+        } else {
+            if (res.status === 400) {
                 dispatch({
                     type: authConstants.LOGIN_FAILURE,
                     payload: { error: res.data.error }
@@ -36,19 +36,29 @@ export const login = (user) => {
 export const isUserLoggedIn = () => {
     return async dispatch => {
         const token = localStorage.getItem('token');
-        if(token){
-            const user = JSON.parse(localStorage.getItem('user')); 
+        if (token) {
+            const user = JSON.parse(localStorage.getItem('user'));
             dispatch({
                 type: authConstants.LOGIN_SUCCESS,
                 payload: {
                     token, user
                 }
             });
-        }else{
+        } else {
+            console.log("aca rompi 2");
             dispatch({
                 type: authConstants.LOGIN_FAILURE,
-                payload: { error: 'Failed to login' }
+                payload: { error: `Failed to login hola ${token}` }
             })
         }
+    }
+}
+
+export const signout = () => {
+    return async dispatch => {
+        localStorage.clear();
+        dispatch({
+            type: authConstants.LOGOUT_REQUEST
+        });
     }
 }
